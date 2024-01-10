@@ -1,7 +1,6 @@
-import { User } from "./main"
-import type { Icon } from "lucide-react"
-
 import { Icons } from "@/components/icons"
+
+import { User } from "./main"
 
 export type NavItem = {
   title: string
@@ -35,6 +34,7 @@ export type SiteConfig = {
   links: {
     twitter: string
     github: string
+    blog: string
   }
 }
 

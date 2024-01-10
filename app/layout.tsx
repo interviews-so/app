@@ -3,6 +3,8 @@ import localFont from "next/font/local"
 
 import "@/styles/globals.css"
 
+import { Metadata, Viewport } from "next"
+
 import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
 import { Toaster } from "@/components/ui/toaster"
@@ -25,7 +27,7 @@ interface RootLayoutProps {
   children: React.ReactNode
 }
 
-export const metadata = {
+export const metadata: Metadata = {
   title: {
     default: siteConfig.name,
     template: `%s | ${siteConfig.name}`,
@@ -45,10 +47,6 @@ export const metadata = {
     },
   ],
   creator: "shadcn",
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "white" },
-    { media: "(prefers-color-scheme: dark)", color: "black" },
-  ],
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -70,6 +68,13 @@ export const metadata = {
     apple: "/apple-touch-icon.png",
   },
   manifest: `${siteConfig.url}/site.webmanifest`,
+}
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "white" },
+    { media: "(prefers-color-scheme: dark)", color: "black" },
+  ],
 }
 
 export default function RootLayout({ children }: RootLayoutProps) {

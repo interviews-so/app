@@ -8,6 +8,9 @@ export const siteConfig: SiteConfig = {
   ogImage: "https://tx.shadcn.com/og.jpg",
   links: {
     twitter: "https://twitter.com/shadcn",
-    github: "https://github.com/dalkommatt/taxonomy-supabase",
+    github: "https://github.com/interviewkit",
+    blog: process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}/blog`
+      : "http://localhost:3000/blog",
   },
 }
