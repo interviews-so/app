@@ -1,6 +1,7 @@
 import * as React from "react"
 import Image from "next/image"
 import { useMDXComponent } from "next-contentlayer/hooks"
+import { Tweet } from "react-tweet"
 
 import { cn } from "@/lib/utils"
 import { Callout } from "@/components/callout"
@@ -152,6 +153,7 @@ const components = {
   ),
   Callout,
   Card: MdxCard,
+  Twitter: ({ id }: { id: string }) => <Tweet id={id} />,
 }
 
 interface MdxProps {
