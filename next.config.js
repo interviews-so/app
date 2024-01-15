@@ -6,11 +6,14 @@ const { withContentlayer } = require("next-contentlayer")
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ["avatars.githubusercontent.com", "lh3.googleusercontent.com"],
     remotePatterns: [
       {
         protocol: "https",
         hostname: "**.githubusercontent.com",
+      },
+      {
+        protocol: "https",
+        hostname: "**.googleusercontent.com",
       },
     ],
   },

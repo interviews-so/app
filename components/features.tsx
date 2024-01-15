@@ -157,18 +157,16 @@ function Features({
         <div>
           <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
             <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-6xl">
-              Streamline the Technical Interview
+              How it Works
             </h2>
             <p className="max-w-[85%] leading-normal text-muted-foreground sm:text-lg sm:leading-7">
-              We believe that technical interviews should reflect daily
-              activities — instead of rote memorization. We&apos;re building a
-              library of real-world programming scenarios to own your interview
-              process and find your next technical hire.
+              Get access to the library in under 30 seconds. All that&apos;s
+              needed is a GitHub account.
             </p>
           </div>
           <div className="pt-8 md:grid md:gap-6 md:pt-0 lg:grid-cols-12">
             <div className="mx-auto max-w-xl md:col-span-7 md:mt-6 md:w-full md:max-w-none lg:col-span-6">
-              <div className="mb-8 md:pr-4 lg:pr-12 xl:pr-16">
+              {/* <div className="mb-8 md:pr-4 lg:pr-12 xl:pr-16">
                 <h2 className="font-heading text-xl leading-[1.1] md:text-2xl">
                   Streamline the Technical Interview
                 </h2>
@@ -178,8 +176,8 @@ function Features({
                   a library of real-world programming scenarios to own your
                   interview process and find your next technical hire.
                 </p>
-              </div>
-              <div className="mb-8 md:mb-0">
+              </div> */}
+              <div className="mb-8 md:mb-0 sm:mt-8">
                 {steps.map((step, i) => (
                   <a
                     className={`mb-3 flex items-center rounded-lg border p-5 text-lg transition duration-300 ease-in-out ${

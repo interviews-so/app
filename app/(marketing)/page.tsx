@@ -11,18 +11,20 @@ import { Icons } from "@/components/icons"
 
 const steps = [
   {
-    name: "Create an account",
-    description: "Sign up for an account and get started in minutes.",
+    name: "1. Create an account",
+    description: "This is used to manage your purchase and access.",
     image: "/images/hero.png",
   },
   {
-    name: "Create an account",
-    description: "Sign up for an account and get started in minutes.",
+    name: "2. Purchase and add your GitHub",
+    description:
+      "Purchase the bundle and link your GitHub account to it. We'll automatically add you to the organization.",
     image: "/images/hero.png",
   },
   {
-    name: "Create an account",
-    description: "Sign up for an account and get started in minutes.",
+    name: "3. Join the organization",
+    description:
+      "Once you're in the organization, you have unlimited access to all the proctor and candidate materials.",
     image: "/images/hero.png",
   },
 ]
@@ -245,7 +247,7 @@ export default async function IndexPage() {
           </div>
           <div className="flex flex-col gap-4 text-center">
             <div>
-              <h4 className="text-7xl font-bold">$500</h4>
+              <h4 className="text-7xl font-bold">$1500</h4>
               <p className="text-sm font-medium text-muted-foreground">
                 Billed Once
               </p>
@@ -275,9 +277,9 @@ export default async function IndexPage() {
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      fill-rule="evenodd"
+                      fillRule="evenodd"
                       d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
-                      clip-rule="evenodd"
+                      clipRule="evenodd"
                     ></path>
                   </svg>
                   {item.question}
