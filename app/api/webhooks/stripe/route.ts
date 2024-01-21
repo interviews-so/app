@@ -1,17 +1,31 @@
 import { cookies, headers } from "next/headers"
-import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs"
+import { CookieOptions, createServerClient } from "@supabase/ssr"
 import Stripe from "stripe"
 
 import { env } from "@/env.mjs"
-import { Database } from "@/types/db"
 import { stripe } from "@/lib/stripe"
 
 export async function POST(req: Request) {
   const body = await req.text()
   const signature = headers().get("Stripe-Signature") as string
-  const supabase = createRouteHandlerClient<Database>({
-    cookies,
-  })
+  const cookieStore = cookies()
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        get(name: string) {
+          return cookieStore.get(name)?.value
+        },
+        set(name: string, value: string, options: CookieOptions) {
+          cookieStore.set({ name, value, ...options })
+        },
+        remove(name: string, options: CookieOptions) {
+          cookieStore.set({ name, value: "", ...options })
+        },
+      },
+    }
+  )
 
   const user = await supabase.auth.getSession()
 

@@ -1,8 +1,7 @@
 import { cookies } from "next/headers"
-import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs"
+import { CookieOptions, createServerClient } from "@supabase/ssr"
 import { z } from "zod"
 
-import { Database } from "@/types/db"
 import { proPlan } from "@/config/subscriptions"
 import { stripe } from "@/lib/stripe"
 import { getUserPurchase } from "@/lib/subscription"
@@ -11,9 +10,24 @@ import { absoluteUrl } from "@/lib/utils"
 const billingUrl = absoluteUrl("/dashboard")
 
 export async function GET(req: Request) {
-  const supabase = createRouteHandlerClient<Database>({
-    cookies,
-  })
+  const cookieStore = cookies()
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        get(name: string) {
+          return cookieStore.get(name)?.value
+        },
+        set(name: string, value: string, options: CookieOptions) {
+          cookieStore.set({ name, value, ...options })
+        },
+        remove(name: string, options: CookieOptions) {
+          cookieStore.set({ name, value: "", ...options })
+        },
+      },
+    }
+  )
 
   try {
     const {

@@ -1,13 +1,16 @@
 "use client"
 
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
 import { Auth } from "@supabase/auth-ui-react"
+import { createBrowserClient } from "@supabase/ssr"
 
 import { Database } from "@/types/db"
 import { getURL } from "@/lib/utils"
 
 export default function UserAuthForm() {
-  const supabase = createClientComponentClient<Database>()
+  const supabase = createBrowserClient<Database>(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  )
 
   return (
     <div className="flex flex-col space-y-4">
