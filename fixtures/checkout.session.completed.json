@@ -1,0 +1,123 @@
+{
+  "_meta": {
+    "template_version": 0
+  },
+  "fixtures": [
+    {
+      "name": "customer",
+      "path": "/v1/customers",
+      "method": "post",
+      "params": {
+        "description": "(created by Stripe CLI)"
+      }
+    },
+    {
+      "name": "invoiceitem",
+      "path": "/v1/invoiceitems",
+      "method": "post",
+      "params": {
+        "amount": 1500,
+        "currency": "usd",
+        "customer": "${customer:id}",
+        "description": "(created by Stripe CLI)"
+      }
+    },
+    {
+      "name": "invoice",
+      "path": "/v1/invoices",
+      "method": "post",
+      "params": {
+        "customer": "${customer:id}",
+        "description": "(created by Stripe CLI)",
+        "pending_invoice_items_behavior": "include"
+      }
+    },
+    {
+      "name": "product",
+      "path": "/v1/products",
+      "method": "post",
+      "params": {
+        "name": "Full Access",
+        "description": "Full access to the interviews.so catalog of interview scenarios."
+      }
+    },
+    {
+      "name": "price",
+      "path": "/v1/prices",
+      "method": "post",
+      "params": {
+        "product": "${product:id}",
+        "unit_amount": "1500",
+        "currency": "usd"
+      }
+    },
+    {
+      "name": "checkout_session",
+      "path": "/v1/checkout/sessions",
+      "method": "post",
+      "params": {
+        "customer": "${customer:id}",
+        "success_url": "https://httpbin.org/post",
+        "cancel_url": "https://httpbin.org/post",
+        "mode": "payment",
+        "line_items": [
+          {
+            "price": "${price:id}",
+            "quantity": 1
+          }
+        ],
+        "payment_intent_data": {
+          "shipping": {
+            "name": "Jenny Rosen",
+            "address": {
+              "line1": "510 Townsend St",
+              "postal_code": "94103",
+              "city": "San Francisco",
+              "state": "CA",
+              "country": "US"
+            }
+          }
+        },
+        "metadata": {
+          "userId": "fake_id"
+        }
+      }
+    },
+    {
+      "name": "payment_page",
+      "path": "/v1/payment_pages/${checkout_session:id}",
+      "method": "get"
+    },
+    {
+      "name": "payment_method",
+      "path": "/v1/payment_methods",
+      "method": "post",
+      "params": {
+        "type": "card",
+        "card": {
+          "token": "tok_visa"
+        },
+        "billing_details": {
+          "email": "stripe@example.com",
+          "name": "Jenny Rosen",
+          "address": {
+            "line1": "354 Oyster Point Blvd",
+            "postal_code": "94080",
+            "city": "South San Francisco",
+            "state": "CA",
+            "country": "US"
+          }
+        }
+      }
+    },
+    {
+      "name": "payment_page_confirm",
+      "path": "/v1/payment_pages/${checkout_session:id}/confirm",
+      "method": "post",
+      "params": {
+        "payment_method": "${payment_method:id}",
+        "expected_amount": 1500
+      }
+    }
+  ]
+}

@@ -1,17 +1,17 @@
 import { cookies } from "next/headers"
-import { createRouteHandlerClient  } from "@supabase/auth-helpers-nextjs"
+import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs"
 import { z } from "zod"
 
 import { Database } from "@/types/db"
 import { proPlan } from "@/config/subscriptions"
 import { stripe } from "@/lib/stripe"
-import { getUserSubscriptionPlan } from "@/lib/subscription"
+import { getUserPurchase } from "@/lib/subscription"
 import { absoluteUrl } from "@/lib/utils"
 
-const billingUrl = absoluteUrl("/dashboard/billing")
+const billingUrl = absoluteUrl("/dashboard")
 
 export async function GET(req: Request) {
-  const supabase = createRouteHandlerClient <Database>({
+  const supabase = createRouteHandlerClient<Database>({
     cookies,
   })
 
@@ -24,13 +24,13 @@ export async function GET(req: Request) {
       return new Response(null, { status: 403 })
     }
 
-    const subscriptionPlan = await getUserSubscriptionPlan(session.user.id)
+    const purchaseInvoice = await getUserPurchase(session.user.id)
 
     // The user is on the pro plan.
     // Create a portal session to manage subscription.
-    if (subscriptionPlan.isPro && subscriptionPlan.stripe_customer_id) {
+    if (purchaseInvoice?.isPaid && purchaseInvoice?.user.stripe_customer_id) {
       const stripeSession = await stripe.billingPortal.sessions.create({
-        customer: subscriptionPlan.stripe_customer_id,
+        customer: purchaseInvoice.user.stripe_customer_id,
         return_url: billingUrl,
       })
 
@@ -43,7 +43,7 @@ export async function GET(req: Request) {
       success_url: billingUrl,
       cancel_url: billingUrl,
       payment_method_types: ["card"],
-      mode: "subscription",
+      mode: "payment",
       billing_address_collection: "auto",
       customer_email: session.user.email,
       line_items: [
@@ -55,10 +55,15 @@ export async function GET(req: Request) {
       metadata: {
         userId: session.user.id,
       },
+      customer_creation: "always",
+      invoice_creation: {
+        enabled: true,
+      },
     })
 
     return new Response(JSON.stringify({ url: stripeSession.url }))
   } catch (error) {
+    console.log(error)
     if (error instanceof z.ZodError) {
       return new Response(JSON.stringify(error.issues), { status: 422 })
     }

@@ -1,10 +1,10 @@
 import { cookies } from "next/headers"
-import { createRouteHandlerClient  } from "@supabase/auth-helpers-nextjs"
+import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs"
 import * as z from "zod"
 
 import { Database } from "@/types/db"
 import { RequiresProPlanError } from "@/lib/exceptions"
-import { getUserSubscriptionPlan } from "@/lib/subscription"
+import { getUserPurchase } from "@/lib/subscription"
 
 const postCreateSchema = z.object({
   title: z.string(),
@@ -12,7 +12,7 @@ const postCreateSchema = z.object({
 })
 
 export async function GET() {
-  const supabase = createRouteHandlerClient <Database>({
+  const supabase = createRouteHandlerClient<Database>({
     cookies,
   })
   try {
@@ -37,7 +37,7 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
-  const supabase = createRouteHandlerClient <Database>({
+  const supabase = createRouteHandlerClient<Database>({
     cookies,
   })
   try {
@@ -50,7 +50,7 @@ export async function POST(req: Request) {
     }
 
     const { user } = session
-    const subscriptionPlan = await getUserSubscriptionPlan(user.id)
+    const subscriptionPlan = await getUserPurchase(user.id)
 
     // If user is on a free plan.
     // Check if user has reached limit of 3 posts.

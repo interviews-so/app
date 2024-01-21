@@ -54,14 +54,7 @@ export type DashboardConfig = {
   sidebarNav: SidebarNavItem[]
 }
 
-export type SubscriptionPlan = {
-  name: string
-  description: string
-  stripe_price_id: string
+export type UserPurchase = {
+  user: User
+  isPaid: boolean
 }
-
-export type UserSubscriptionPlan = SubscriptionPlan &
-  Pick<User, "stripe_customer_id" | "stripe_subscription_id"> & {
-    stripe_current_period_end: number
-    isPro: boolean
-  }

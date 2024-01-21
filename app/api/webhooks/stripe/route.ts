@@ -13,6 +13,10 @@ export async function POST(req: Request) {
     cookies,
   })
 
+  const user = await supabase.auth.getSession()
+
+  console.log(user)
+
   let event: Stripe.Event
 
   try {
@@ -27,45 +31,39 @@ export async function POST(req: Request) {
 
   const session = event.data.object as Stripe.Checkout.Session
 
+  console.log("event.type", event.type)
+
   if (event.type === "checkout.session.completed") {
-    // Retrieve the subscription details from Stripe.
-    const subscription = await stripe.subscriptions.retrieve(
-      session.subscription as string
-    )
+    // Retrieve the payment details from Stripe.
+
+    console.log("session", session)
+    const invoice = await stripe.invoices.retrieve(session.invoice as string)
+    console.log("invoice", invoice)
+
+    if (!session?.metadata?.userId) {
+      console.error("Missing user id", {
+        event,
+        session,
+        invoice,
+      })
+
+      throw new Error("Missing user id")
+    }
+
+    console.log("invoice.customer", invoice.customer, session.metadata.userId)
 
     // Update the user stripe into in our database.
-    // Since this is the initial subscription, we need to update
-    // the subscription id and customer id.
-
-    await supabase
+    const res = await supabase
       .from("users")
       .update({
-        stripe_customer_id: subscription.id,
-        stripe_subscription_id: subscription.customer as string,
-        stripe_price_id: subscription.items.data[0].price.id,
-        stripe_current_period_end: new Date(
-          subscription.current_period_end * 1000
-        ).toISOString(),
+        stripe_customer_id: invoice.customer as string,
+        stripe_invoice_id: invoice.id,
+        stripe_purchase_date: new Date(invoice.created).toUTCString(),
       })
-      .eq("id", session?.metadata?.userId!)
-  }
+      .eq("id", session.metadata.userId)
+      .select("*")
 
-  if (event.type === "invoice.payment_succeeded") {
-    // Retrieve the subscription details from Stripe.
-    const subscription = await stripe.subscriptions.retrieve(
-      session.subscription as string
-    )
-
-    // Update the price id and set the new period end.
-    await supabase
-      .from("users")
-      .update({
-        stripe_price_id: subscription.items.data[0].price.id,
-        stripe_current_period_end: new Date(
-          subscription.current_period_end * 1000
-        ).toISOString(),
-      })
-      .eq("stripe_subscription_id", subscription.id)
+    console.log("res", res)
   }
 
   return new Response(null, { status: 200 })

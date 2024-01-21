@@ -51,6 +51,20 @@ npm install
 npm run dev
 ```
 
+## Configuring Dependencies
+
+### Supabase
+
+You need to enable the following providers:
+
+- Email
+- GitHub
+- Google
+
+You'll need to create each of the providers locally and then add the credentials to your supabase project.
+
+### Stripe
+
 ## Contributing
 
 We welcome contributions to our blog, website, and library of questions. Please see the [contributing guide](./CONTRIBUTING.md) for more information. **All contributions will always be free and open-source.**
