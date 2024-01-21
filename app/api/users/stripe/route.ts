@@ -2,7 +2,6 @@ import { cookies } from "next/headers"
 import { CookieOptions, createServerClient } from "@supabase/ssr"
 import { z } from "zod"
 
-import { proPlan } from "@/config/subscriptions"
 import { stripe } from "@/lib/stripe"
 import { getUserPurchase } from "@/lib/subscription"
 import { absoluteUrl } from "@/lib/utils"
@@ -62,7 +61,7 @@ export async function GET(req: Request) {
       customer_email: session.user.email,
       line_items: [
         {
-          price: proPlan.stripe_price_id,
+          price: process.env.STRIPE_PRICE_ID!,
           quantity: 1,
         },
       ],

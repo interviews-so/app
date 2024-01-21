@@ -28,7 +28,7 @@ export default async function DashboardLayout({
             user={{
               name: user.user_metadata.full_name,
               image: user.user_metadata.avatar_url,
-              email: user.email,
+              email: user.email ?? null,
             }}
           />
         </div>
