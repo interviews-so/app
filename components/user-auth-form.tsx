@@ -1,5 +1,7 @@
 "use client"
 
+import { useEffect } from "react"
+import { useRouter } from "next/navigation"
 import { Auth } from "@supabase/auth-ui-react"
 import { createBrowserClient } from "@supabase/ssr"
 
@@ -7,10 +9,19 @@ import { Database } from "@/types/db"
 import { getURL } from "@/lib/utils"
 
 export default function UserAuthForm() {
+  const router = useRouter()
   const supabase = createBrowserClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
   )
+
+  useEffect(() => {
+    supabase.auth.onAuthStateChange((event, session) => {
+      if (session) {
+        router.refresh()
+      }
+    })
+  }, [supabase.auth, router])
 
   return (
     <div className="flex flex-col space-y-4">
@@ -18,7 +29,7 @@ export default function UserAuthForm() {
         supabaseClient={supabase}
         providers={["github", "google"]}
         redirectTo={getURL()}
-        magicLink={true}
+        magicLink
         appearance={{
           className: {
             anchor:
