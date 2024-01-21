@@ -39,15 +39,21 @@ export async function GET(req: Request) {
 
     const purchaseInvoice = await getUserPurchase(session.user.id)
 
-    // The user is on the pro plan.
-    // Create a portal session to manage subscription.
+    // The user is paid already.
+    // Create a portal session to view invoice.
     if (purchaseInvoice?.isPaid && purchaseInvoice?.user.stripe_customer_id) {
       const stripeSession = await stripe.billingPortal.sessions.create({
         customer: purchaseInvoice.user.stripe_customer_id,
         return_url: billingUrl,
       })
 
-      return new Response(JSON.stringify({ url: stripeSession.url }))
+      const stripeInvoice = await stripe.invoices.retrieve(
+        purchaseInvoice.user.stripe_invoice_id!
+      )
+
+      return new Response(
+        JSON.stringify({ url: stripeInvoice.hosted_invoice_url })
+      )
     }
 
     // The user is on the free plan.

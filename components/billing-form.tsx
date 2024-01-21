@@ -51,7 +51,7 @@ export function BillingForm({
         disabled={isLoading}
       >
         {isLoading && <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />}
-        {purchase?.isPaid ? "Manage Subscription" : "Upgrade to PRO"}
+        {purchase?.isPaid ? "View Invoice" : "Purchase"}
       </button>
     </form>
   )
