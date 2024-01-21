@@ -9,14 +9,14 @@ export const siteConfig: SiteConfig = {
   links: {
     twitter: "https://twitter.com/interviews_so",
     github: "https://github.com/interviews-so",
-    blog: process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}/blog`
+    blog: process.env.NEXT_PUBLIC_APP_URL
+      ? `https://${process.env.NEXT_PUBLIC_APP_URL}/blog`
       : "http://localhost:3000/blog",
-    privacy: process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}/privacy`
+    privacy: process.env.NEXT_PUBLIC_APP_URL
+      ? `https://${process.env.NEXT_PUBLIC_APP_URL}/privacy`
       : "http://localhost:3000/privacy",
-    terms: process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}/terms`
+    terms: process.env.NEXT_PUBLIC_APP_URL
+      ? `https://${process.env.NEXT_PUBLIC_APP_URL}/terms`
       : "http://localhost:3000/terms",
   },
 }
