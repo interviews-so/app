@@ -9,9 +9,11 @@ export async function POST(req: Request) {
   const body = await req.text()
   const signature = headers().get("Stripe-Signature") as string
   const cookieStore = cookies()
+
+  // We are in a webhook so there is no session, need to use service account to bypass RLS
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    process.env.SUPABASE_SERVICE_ACCOUNT_ROLE!,
     {
       cookies: {
         get(name: string) {
@@ -27,10 +29,6 @@ export async function POST(req: Request) {
     }
   )
 
-  const user = await supabase.auth.getSession()
-
-  console.log(user)
-
   let event: Stripe.Event
 
   try {
@@ -45,14 +43,9 @@ export async function POST(req: Request) {
 
   const session = event.data.object as Stripe.Checkout.Session
 
-  console.log("event.type", event.type)
-
   if (event.type === "checkout.session.completed") {
     // Retrieve the payment details from Stripe.
-
-    console.log("session", session)
     const invoice = await stripe.invoices.retrieve(session.invoice as string)
-    console.log("invoice", invoice)
 
     if (!session?.metadata?.userId) {
       console.error("Missing user id", {
@@ -64,20 +57,16 @@ export async function POST(req: Request) {
       throw new Error("Missing user id")
     }
 
-    console.log("invoice.customer", invoice.customer, session.metadata.userId)
-
     // Update the user stripe into in our database.
-    const res = await supabase
+    await supabase
       .from("users")
       .update({
         stripe_customer_id: invoice.customer as string,
         stripe_invoice_id: invoice.id,
-        stripe_purchase_date: new Date(invoice.created).toUTCString(),
+        stripe_purchase_date: new Date(invoice.created * 1000).toUTCString(),
       })
       .eq("id", session.metadata.userId)
       .select("*")
-
-    console.log("res", res)
   }
 
   return new Response(null, { status: 200 })
