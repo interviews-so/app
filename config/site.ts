@@ -9,14 +9,8 @@ export const siteConfig: SiteConfig = {
   links: {
     twitter: "https://twitter.com/interviews_so",
     github: "https://github.com/interviews-so",
-    blog: process.env.NEXT_PUBLIC_APP_URL
-      ? `https://${process.env.NEXT_PUBLIC_APP_URL}/blog`
-      : "http://localhost:3000/blog",
-    privacy: process.env.NEXT_PUBLIC_APP_URL
-      ? `https://${process.env.NEXT_PUBLIC_APP_URL}/privacy`
-      : "http://localhost:3000/privacy",
-    terms: process.env.NEXT_PUBLIC_APP_URL
-      ? `https://${process.env.NEXT_PUBLIC_APP_URL}/terms`
-      : "http://localhost:3000/terms",
+    blog: `https://${process.env.NEXT_PUBLIC_APP_URL}/blog`,
+    privacy: `https://${process.env.NEXT_PUBLIC_APP_URL}/privacy`,
+    terms: `https://${process.env.NEXT_PUBLIC_APP_URL}/terms`,
   },
 }
