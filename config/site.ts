@@ -1,16 +1,22 @@
 import { SiteConfig } from "types"
 
 export const siteConfig: SiteConfig = {
-  name: "Taxonomy",
+  name: "Interviews",
   description:
-    "An open source application built using the new router, server components and everything new in Next.js 13.",
-  url: "https://tx.shadcn.com",
-  ogImage: "https://tx.shadcn.com/og.jpg",
+    "A library of real-world programming scenarios to use as technical interviews.",
+  url: "https://interviews.so",
+  ogImage: "https://interviews.so/og.jpg",
   links: {
-    twitter: "https://twitter.com/shadcn",
-    github: "https://github.com/interviewkit",
+    twitter: "https://twitter.com/interviews_so",
+    github: "https://github.com/interviews-so",
     blog: process.env.VERCEL_URL
       ? `https://${process.env.VERCEL_URL}/blog`
       : "http://localhost:3000/blog",
+    privacy: process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}/privacy`
+      : "http://localhost:3000/privacy",
+    terms: process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}/terms`
+      : "http://localhost:3000/terms",
   },
 }

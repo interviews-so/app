@@ -1,92 +1,59 @@
-# Taxonomy + Supabase
+<!-- markdownlint-configure-file {
+  "MD013": false,
+  "MD033": false,
+  "MD041": false
+} -->
 
-A clone of @shadcn's open source application built using the new router, server components, and everything new in Next.js 13, but with Supabase as the backend/auth solution. This project will be kept up to date with the main project as an alternative option to PlanetScale/Next Auth. The below is the README from the main project.
+<div align="center">
 
-> **Warning**
-> This app is a work in progress. I'm building this in public. You can follow the progress on Twitter [@shadcn](https://twitter.com/shadcn).
-> See the roadmap below.
+<hr />
 
-## About this project
+<img src="./public/logo-light.svg" alt="interviews logo">
 
-This project as an experiment to see how a modern app (with features like authentication, subscriptions, API routes, static pages for docs ...etc) would work in Next.js 13 and server components.
+# Interviews
 
-**This is not a starter template.**
+[![interviews.so][interviews.so-badge]][interviews.so]
 
-A few people have asked me to turn this into a starter. I think we could do that once the new features are out of beta.
+[Interviews](https://interviews.so) is a library of real-world programming scenarios to use as technical interviews.
 
-## Note on Performance
+**No leetcode or algorithm based questions.**
 
-> **Warning**
-> This app is using the unstable releases for Next.js 13 and React 18. The new router and app dir is still in beta and not production-ready.
-> **Expect some performance hits when testing the dashboard**.
-> If you see something broken, you can ping me [@shadcn](https://twitter.com/shadcn).
+[About](#about-interviews) •
+[Developing](#developing) •
+[Contributing](#contributing)
 
-## Features
+</div>
 
-- New `/app` dir,
-- Routing, Layouts, Nested Layouts and Layout Groups
-- Data Fetching, Caching and Mutation
-- Loading UI
-- Route handlers
-- Metadata files
-- Server and Client Components
-- API Routes and Middlewares
-- Authentication using **Supabase Auth**
-- Database on **Supabase**
-- UI Components built using **Radix UI**
-- Documentation and blog using **MDX** and **Contentlayer**
-- Subscriptions using **Stripe**
-- Styled using **Tailwind CSS**
-- Validations using **Zod**
-- Written in **TypeScript**
+## About Interviews
 
-## Roadmap
+**Interviews** was created to help companies hire developers based on real-world scenarios — i.e. things a developer could do on a normal day, not runtime and algorithm puzzles. The questions are designed to be open-ended and allow the candidate to demonstrate their knowledge and experience.
 
-- [x] ~Add MDX support for basic pages~
-- [x] ~Build marketing pages~
-- [x] ~Subscriptions using Stripe~
-- [x] ~Responsive styles~
-- [x] ~Add OG image for blog using @vercel/og~
-- [x] Dark mode
+We also provide [a blog](https://interviews.so/blog) that covers topics related to interviewing and how to get the most out of your interviews. Those articles are found in the [docs](./content/blog) folder.
 
-## Known Issues
+This repo is the source code for the [interviews.so](https://interviews.so) website. If you're looking for the library of questions, you can find free scenarios [here](https://github.com/interviews-so). The full library is available to [members](https://interviews.so/login).
 
-A list of things not working right now:
+## Developing
 
-1. ~GitHub authentication (use email)~
-2. ~[Prisma: Error: ENOENT: no such file or directory, open '/var/task/.next/server/chunks/schema.prisma'](https://github.com/prisma/prisma/issues/16117)~
-3. ~[Next.js 13: Client side navigation does not update head](https://github.com/vercel/next.js/issues/42414)~
-4. [Cannot use opengraph-image.tsx inside catch-all routes](https://github.com/vercel/next.js/issues/48162)
+This is a Nextjs app based on [Taxonomy](https://github.com/shadcn/taxonomy).
 
-## Why not tRPC, Turborepo or X?
-
-I might add this later. For now, I want to see how far we can get using Next.js only.
-
-If you have some suggestions, feel free to create an issue.
-
-## Running Locally
-
-1. Install dependencies using pnpm:
+Setup the environment variables:
 
 ```sh
-pnpm install
+mv .env.example .env.local
 ```
 
-2. Copy `.env.example` to `.env.local` and update the variables.
-```
-cp .env.example .env.local
-```
+Fill in the required values.
 
-3. Create a Supabase project and copy the environmental variables into `.env.local`. You can follow the [official docs](https://supabase.io/docs/guides/with-nextjs) to get started.
-
-4. Copy the `schema.sql` file from the root of this project into your Supabase project's SQL editor and run it to create the tables.
-
-5. Start the development server:
+Install dependencies and run the development server:
 
 ```sh
-pnpm dev
+npm install
+npm run dev
 ```
 
-## License
+## Contributing
 
-Licensed under the [MIT license](https://github.com/shadcn/taxonomy/blob/main/LICENSE.md).
+We welcome contributions to our blog, website, and library of questions. Please see the [contributing guide](./CONTRIBUTING.md) for more information. **All contributions will always be free and open-source.**
+
+[interviews.so-badge]: https://img.shields.io/website?url=https%3A%2F%2Finterviews.so
+[interviews.so]: https://interviews.so

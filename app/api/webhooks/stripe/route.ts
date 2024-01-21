@@ -1,5 +1,5 @@
 import { cookies, headers } from "next/headers"
-import { createRouteHandlerClient  } from "@supabase/auth-helpers-nextjs"
+import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs"
 import Stripe from "stripe"
 
 import { env } from "@/env.mjs"
@@ -9,7 +9,7 @@ import { stripe } from "@/lib/stripe"
 export async function POST(req: Request) {
   const body = await req.text()
   const signature = headers().get("Stripe-Signature") as string
-  const supabase = createRouteHandlerClient <Database>({
+  const supabase = createRouteHandlerClient<Database>({
     cookies,
   })
 
@@ -47,7 +47,7 @@ export async function POST(req: Request) {
           subscription.current_period_end * 1000
         ).toISOString(),
       })
-      .eq("id", session?.metadata?.userId)
+      .eq("id", session?.metadata?.userId!)
   }
 
   if (event.type === "invoice.payment_succeeded") {

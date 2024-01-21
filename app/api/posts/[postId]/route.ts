@@ -1,5 +1,5 @@
 import { cookies } from "next/headers"
-import { createRouteHandlerClient  } from "@supabase/auth-helpers-nextjs"
+import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs"
 import * as z from "zod"
 
 import { Database } from "@/types/db"
@@ -15,7 +15,7 @@ export async function DELETE(
   req: Request,
   context: z.infer<typeof routeContextSchema>
 ) {
-  const supabase = createRouteHandlerClient <Database>({
+  const supabase = createRouteHandlerClient<Database>({
     cookies,
   })
   try {
@@ -43,7 +43,7 @@ export async function PATCH(
   req: Request,
   context: z.infer<typeof routeContextSchema>
 ) {
-  const supabase = createRouteHandlerClient <Database>({
+  const supabase = createRouteHandlerClient<Database>({
     cookies,
   })
   try {
@@ -81,7 +81,7 @@ export async function PATCH(
 }
 
 async function verifyCurrentUserHasAccessToPost(postId: string) {
-  const supabase = createRouteHandlerClient <Database>({
+  const supabase = createRouteHandlerClient<Database>({
     cookies,
   })
   const {
@@ -92,7 +92,7 @@ async function verifyCurrentUserHasAccessToPost(postId: string) {
     .from("posts")
     .select("*", { count: "exact", head: true })
     .eq("id", postId)
-    .eq("author_id", session?.user.id)
+    .eq("author_id", session?.user.id!)
 
   return count ? count > 0 : false
 }

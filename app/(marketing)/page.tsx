@@ -13,19 +13,19 @@ const steps = [
   {
     name: "1. Create an account",
     description: "This is used to manage your purchase and access.",
-    image: "/images/hero.png",
+    image: "/images/account-creation.jpg",
   },
   {
     name: "2. Purchase and add your GitHub",
     description:
       "Purchase the bundle and link your GitHub account to it. We'll automatically add you to the organization.",
-    image: "/images/hero.png",
+    image: "/images/account-purchase.jpg",
   },
   {
     name: "3. Join the organization",
     description:
       "Once you're in the organization, you have unlimited access to all the proctor and candidate materials.",
-    image: "/images/hero.png",
+    image: "/images/account-folder.jpg",
   },
 ]
 

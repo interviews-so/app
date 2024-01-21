@@ -177,9 +177,10 @@ function Features({
                   interview process and find your next technical hire.
                 </p>
               </div> */}
-              <div className="mb-8 md:mb-0 sm:mt-8">
+              <div className="mb-8 sm:mt-8 md:mb-0">
                 {steps.map((step, i) => (
                   <a
+                    key={step.name}
                     className={`mb-3 flex items-center rounded-lg border p-5 text-lg transition duration-300 ease-in-out ${
                       tab !== i + 1 ? "border-transparent" : "border-slate-600"
                     }`}
@@ -208,6 +209,7 @@ function Features({
               <div className="relative flex flex-col text-center lg:text-right">
                 {steps.map((step, i) => (
                   <Transition
+                    key={step.name}
                     show={tab === i + 1}
                     appear={true}
                     className="w-full"
@@ -218,7 +220,7 @@ function Features({
                     leaveStart="opacity-100 translate-y-0"
                     leaveEnd="opacity-0 -translate-y-16"
                   >
-                    <div className="relative inline-flex flex-col">
+                    <div className="relative inline-flex flex-col sm:mt-12">
                       <Image
                         className="mx-auto rounded md:max-w-none"
                         src={step.image}

@@ -4,6 +4,7 @@ import { allAuthors, allPosts } from "contentlayer/generated"
 import { Mdx } from "@/components/mdx-components"
 
 import "@/styles/mdx.css"
+
 import { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
@@ -124,7 +125,7 @@ export default async function PostPage({ params }: PostPageProps) {
               author ? (
                 <Link
                   key={author._id}
-                  href={`https://twitter.com/${author.twitter}`}
+                  href={`https://github.com/${author.github}`}
                   className="flex items-center space-x-2 text-sm"
                 >
                   <Image
@@ -137,7 +138,7 @@ export default async function PostPage({ params }: PostPageProps) {
                   <div className="flex-1 text-left leading-tight">
                     <p className="font-medium">{author.title}</p>
                     <p className="text-[12px] text-muted-foreground">
-                      @{author.twitter}
+                      @{author.github}
                     </p>
                   </div>
                 </Link>
