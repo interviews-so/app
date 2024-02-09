@@ -16,7 +16,7 @@
 
 [Interviews](https://interviews.so) is a library of real-world programming scenarios to use as technical interviews.
 
-**No leetcode or algorithm based questions.**
+**No leetcode or puzzle based questions.**
 
 [About](#about-interviews) •
 [Developing](#developing) •
