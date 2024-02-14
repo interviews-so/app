@@ -4,9 +4,9 @@ import { z } from "zod"
 
 import { stripe } from "@/lib/stripe"
 import { getUserPurchase } from "@/lib/subscription"
-import { absoluteUrl } from "@/lib/utils"
+import { fullUrl } from "@/lib/utils"
 
-const billingUrl = absoluteUrl("/dashboard")
+const billingUrl = fullUrl("/dashboard")
 
 export async function GET(req: Request) {
   const cookieStore = cookies()
@@ -42,11 +42,6 @@ export async function GET(req: Request) {
     // The user is paid already.
     // Create a portal session to view invoice.
     if (purchaseInvoice?.isPaid && purchaseInvoice?.user.stripe_customer_id) {
-      const stripeSession = await stripe.billingPortal.sessions.create({
-        customer: purchaseInvoice.user.stripe_customer_id,
-        return_url: billingUrl,
-      })
-
       const stripeInvoice = await stripe.invoices.retrieve(
         purchaseInvoice.user.stripe_invoice_id!
       )

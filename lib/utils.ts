@@ -20,6 +20,12 @@ export function absoluteUrl(path: string) {
   return `${env.NEXT_PUBLIC_APP_URL}${path}`
 }
 
+export const fullUrl = (path: string) => {
+  return `http${process.env.NODE_ENV === "development" ? "" : "s"}://${
+    env.NEXT_PUBLIC_APP_URL
+  }${path}`
+}
+
 export const getURL = () => {
   let url =
     process?.env?.NEXT_PUBLIC_APP_URL ?? // Set this to your site URL in production env.

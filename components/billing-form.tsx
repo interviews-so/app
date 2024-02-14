@@ -21,10 +21,12 @@ export function BillingForm({
 
   async function onSubmit(event) {
     event.preventDefault()
-    setIsLoading(!isLoading)
+    setIsLoading((loading) => !loading)
 
     // Get a Stripe session URL.
     const response = await fetch("/api/users/stripe")
+
+    setIsLoading((loading) => !loading)
 
     if (!response?.ok) {
       return toast({
