@@ -4,9 +4,9 @@ import { allPages } from "contentlayer/generated"
 import { Mdx } from "@/components/mdx-components"
 
 import "@/styles/mdx.css"
+
 import { Metadata } from "next"
 
-import { env } from "@/env.mjs"
 import { siteConfig } from "@/config/site"
 import { absoluteUrl } from "@/lib/utils"
 
@@ -36,13 +36,6 @@ export async function generateMetadata({
     return {}
   }
 
-  const url = env.NEXT_PUBLIC_APP_URL
-
-  const ogUrl = new URL(`${url}/api/og`)
-  ogUrl.searchParams.set("heading", page.title)
-  ogUrl.searchParams.set("type", siteConfig.name)
-  ogUrl.searchParams.set("mode", "light")
-
   return {
     title: page.title,
     description: page.description,
@@ -53,7 +46,7 @@ export async function generateMetadata({
       url: absoluteUrl(page.slug),
       images: [
         {
-          url: ogUrl.toString(),
+          url: siteConfig.ogImage,
           width: 1200,
           height: 630,
           alt: page.title,
@@ -64,7 +57,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: page.title,
       description: page.description,
-      images: [ogUrl.toString()],
+      images: [siteConfig.ogImage],
     },
   }
 }

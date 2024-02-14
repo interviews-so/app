@@ -1,9 +1,9 @@
 import { SiteConfig } from "types"
 
 export const siteConfig: SiteConfig = {
-  name: "Interviews",
+  name: "Interviews — Technical scenarios that create founding engineers",
   description:
-    "A library of real-world programming scenarios to use as technical interviews.",
+    "A library of real-world programming scenarios to use as technical interviews. Open-ended and flexible materials to adapt to any company. No leetcode or algorithm puzzles.",
   url: "https://interviews.so",
   ogImage: "https://interviews.so/og.jpg",
   links: {

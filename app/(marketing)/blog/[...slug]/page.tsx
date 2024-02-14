@@ -9,7 +9,7 @@ import { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
 
-import { env } from "@/env.mjs"
+import { siteConfig } from "@/config/site"
 import { absoluteUrl, cn, formatDate } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
 import { Icons } from "@/components/icons"
@@ -40,13 +40,6 @@ export async function generateMetadata({
     return {}
   }
 
-  const url = env.NEXT_PUBLIC_APP_URL
-
-  const ogUrl = new URL(`${url}/api/og`)
-  ogUrl.searchParams.set("heading", post.title)
-  ogUrl.searchParams.set("type", "Blog Post")
-  ogUrl.searchParams.set("mode", "dark")
-
   return {
     title: post.title,
     description: post.description,
@@ -60,7 +53,7 @@ export async function generateMetadata({
       url: absoluteUrl(post.slug),
       images: [
         {
-          url: ogUrl.toString(),
+          url: siteConfig.ogImage,
           width: 1200,
           height: 630,
           alt: post.title,
@@ -71,7 +64,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: post.title,
       description: post.description,
-      images: [ogUrl.toString()],
+      images: [siteConfig.ogImage],
     },
   }
 }
