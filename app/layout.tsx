@@ -34,19 +34,19 @@ export const metadata: Metadata = {
   },
   description: siteConfig.description,
   keywords: [
-    "Next.js",
-    "React",
-    "Tailwind CSS",
-    "Server Components",
-    "Radix UI",
+    "Interviews",
+    "Technical Interviews",
+    "Startup",
+    "Founding Engineers",
+    "Software Engineering",
   ],
   authors: [
     {
-      name: "interviews",
-      url: "https://interviews.com",
+      name: "Interviews",
+      url: "https://interviews.so",
     },
   ],
-  creator: "interviews",
+  creator: "Interviews",
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -54,6 +54,14 @@ export const metadata: Metadata = {
     title: siteConfig.title,
     description: siteConfig.description,
     siteName: siteConfig.name,
+    images: [
+      {
+        url: `${siteConfig.url}/og.jpg`,
+        width: 1200,
+        height: 630,
+        alt: siteConfig.name,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
