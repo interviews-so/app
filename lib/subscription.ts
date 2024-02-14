@@ -41,6 +41,7 @@ export async function getUserPurchase(
           await supabase
             .from("users")
             .update({
+              stripe_customer_id: customer.data[0].id,
               stripe_invoice_id: invoice.id,
               stripe_purchase_date: new Date(
                 invoice.created * 1000
