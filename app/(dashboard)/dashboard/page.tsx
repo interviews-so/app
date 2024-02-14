@@ -20,8 +20,6 @@ export default async function DashboardPage() {
 
   const purchase = await getUserPurchase(user.id)
 
-  console.log(purchase)
-
   return (
     <DashboardShell>
       {purchase?.isPaid ? (
