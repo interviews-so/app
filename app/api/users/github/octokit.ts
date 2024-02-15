@@ -1,5 +1,5 @@
 import { createAppAuth } from "@octokit/auth-app"
-import { Octokit } from "@octokit/rest"
+import { Octokit } from "octokit"
 
 // This is a bug with the way the private key is stored in the docker env
 // See https://github.com/moby/moby/issues/46773

@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation"
 
+import { siteConfig } from "@/config/site"
 import { getUserPurchase } from "@/lib/subscription"
 import { BillingForm } from "@/components/billing-form"
 import { EmptyPlaceholder } from "@/components/empty-placeholder"
@@ -46,7 +47,12 @@ export default async function DashboardPage() {
             <EmptyPlaceholder.Title>Purchase Access</EmptyPlaceholder.Title>
             <EmptyPlaceholder.Description>
               You have not yet purchased access to the organization. You will
-              need a GitHub account in order to gain access.
+              need a GitHub account in order to gain access. You can view a free
+              subset of our resources{" "}
+              <a href={siteConfig.links.github} className="underline">
+                here
+              </a>
+              .
             </EmptyPlaceholder.Description>
             <BillingForm purchase={purchase} />
           </EmptyPlaceholder>

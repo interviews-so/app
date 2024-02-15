@@ -30,6 +30,7 @@ export function GitHubLink({ className, ...props }: GitHubLinkProps) {
       const { data } = await supabase.from("github_users").select().limit(1)
 
       setUser(data?.[0] ?? null)
+      setGitHubUser(data?.[0]?.github_user ?? "")
     },
     [supabase]
   )
@@ -64,10 +65,16 @@ export function GitHubLink({ className, ...props }: GitHubLinkProps) {
     if (!response?.ok) {
       return toast({
         title: "Something went wrong.",
-        description: "Please refresh the page and try again.",
+        description: await response.text(),
         variant: "destructive",
       })
     }
+
+    toast({
+      title: "Invitation sent",
+      description: `We've sent an invitation to ${githubUser}.`,
+      variant: "default",
+    })
   }
 
   return (
@@ -90,15 +97,12 @@ export function GitHubLink({ className, ...props }: GitHubLinkProps) {
         <button
           type="submit"
           className={cn(buttonVariants())}
-          disabled={
-            isLoading ||
-            githubUser?.length === 0 ||
-            githubUser === user?.github_user ||
-            !githubUser
-          }
+          disabled={isLoading || githubUser?.length === 0}
         >
           {isLoading && <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />}
-          Link
+          {user?.github_user && user?.github_user === githubUser
+            ? "Resend Invitation"
+            : "Send Invitation"}
         </button>
       </form>
     </div>
