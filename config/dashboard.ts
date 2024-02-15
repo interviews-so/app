@@ -9,11 +9,6 @@ export const dashboardConfig: DashboardConfig = {
   ],
   sidebarNav: [
     {
-      title: "Posts",
-      href: "/dashboard",
-      icon: "post",
-    },
-    {
       title: "Billing",
       href: "/dashboard/billing",
       icon: "billing",
