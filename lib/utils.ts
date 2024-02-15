@@ -20,7 +20,7 @@ export function absoluteUrl(path: string) {
   return `${env.NEXT_PUBLIC_APP_URL}${path}`
 }
 
-export const fullUrl = (path: string) => {
+export const fullUrl = (path: string = "") => {
   return `http${process.env.NODE_ENV === "development" ? "" : "s"}://${
     env.NEXT_PUBLIC_APP_URL
   }${path}`
