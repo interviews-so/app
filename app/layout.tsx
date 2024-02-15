@@ -6,7 +6,7 @@ import "@/styles/globals.css"
 import { Metadata, Viewport } from "next"
 
 import { siteConfig } from "@/config/site"
-import { cn } from "@/lib/utils"
+import { cn, fullUrl } from "@/lib/utils"
 import { Toaster } from "@/components/ui/toaster"
 import { Analytics } from "@/components/analytics"
 import { TailwindIndicator } from "@/components/tailwind-indicator"
@@ -28,6 +28,7 @@ interface RootLayoutProps {
 }
 
 export const metadata: Metadata = {
+  metadataBase: new URL(fullUrl()),
   title: {
     default: siteConfig.title,
     template: `%s | ${siteConfig.name}`,
