@@ -73,6 +73,7 @@ export async function GET(req: Request) {
       invoice_creation: {
         enabled: true,
       },
+      allow_promotion_codes: true,
     })
 
     return new Response(JSON.stringify({ url: stripeSession.url }))
